@@ -24,4 +24,9 @@ public abstract class Item {
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+    // 비즈니스 로직 추가 : 재고 추가시 추가해주는 함수
+    public void addaStock(int quantity) {
+        this.stockQuantity += quantity;
+    }
 }
