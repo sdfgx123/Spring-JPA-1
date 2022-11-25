@@ -36,6 +36,11 @@ dependencies {
 
 	// adding dependency for using javax validation package : validation 패키지 사용을 위한 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.5'
+
+	// JUnit4 추가
+	testImplementation("org.junit.vintage:junit-vintage-engine") {
+		exclude group: "org.hamcrest", module: "hamcrest-core"
+	}
 }
 
 tasks.named('test') {
