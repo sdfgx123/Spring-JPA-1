@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,8 @@ public class Member {
     private Address address;
 
     // order 테이블에 있는 member 필드에 의해서 매핑됨
+    // JsonIgnore : 회원 조회시, order 정보들 노출하지 않아도 될 정보까지 뿌려주기 때문에, 이 정보가 노출되는 것을 막기 위해 사용하는 어노테이션
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 

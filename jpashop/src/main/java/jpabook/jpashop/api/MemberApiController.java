@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +19,36 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
-    // 회원 등록하는 API
+    /**
+     * 제일 안 좋은 회원 조회 버전
+     * 엔티티에 프레젠테이션 로직이 추가됨 > 엔티티의 양방향 의존관계로 인해 인해 수정이 어려워짐 > 엔티티로 의존관계가 쭉 들어와야 하는데, 반대로 엔티티가 의존관계를 막아버림
+     * 그리고 엔티티가 변경될 경우 > API 스펙도 같이 변경되기 때문에 장애 발생 여지 > 큰 장애
+     */
+    @GetMapping("/api/v1/members")
+    public List<Member> memberV1() {
+        return memberService.findMembers();
+    }
+
+    @GetMapping("/api/v2/members")
+    public Result memberV2() {
+        List<Member> findMembers = memberService.findMembers();
+        List<MemberDto> collect = findMembers.stream()
+                .map(m -> new MemberDto(m.getName()))
+                .collect(Collectors.toList());
+        return new Result(collect);
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class MemberDto {
+        private String name;
+    }
 
     /**
      * 회원 등록하는 API
