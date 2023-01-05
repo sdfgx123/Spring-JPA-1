@@ -29,6 +29,10 @@ public class MemberApiController {
         return memberService.findMembers();
     }
 
+    /**
+     * 버전 1 개선한 형태
+     * 엔티티로 파라미터 받은 다음, DTO로 바꿔서 return 해줌
+     */
     @GetMapping("/api/v2/members")
     public Result memberV2() {
         List<Member> findMembers = memberService.findMembers();
