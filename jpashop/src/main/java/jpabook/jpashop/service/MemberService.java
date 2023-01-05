@@ -50,4 +50,14 @@ public class MemberService {
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
     }
+
+    /**
+     * Transaction 어노테이션에 의해서, 트랜잭션 AOP가 끝나는 시점에 commit 발생
+     * 이때 JPA가 flush 하고, 데이터베이스 commit
+     */
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
 }
