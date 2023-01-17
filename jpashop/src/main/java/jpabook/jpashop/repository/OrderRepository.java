@@ -78,4 +78,17 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+    /**
+     * distinct 키워드를 씀으로 인해 엔티티 단위에서 한 번 더 데이터를 걸러줌.
+     * 예를 들어, Order 엔티티에서 order_id가 같은 데이터를 중복 제거함.
+     */
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d" +
+                " join fetch o.orderItems oi" +
+                " join fetch oi.item i", Order.class)
+                .getResultList();
+    }
 }
