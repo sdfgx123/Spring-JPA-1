@@ -12,7 +12,7 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
-        default_batch_fetch_size: 100 // 미리 인쿼리를 몇 개나 땡겨올 건지 설정
+        #default_batch_fetch_size: 100 // 미리 인쿼리를 몇 개나 땡겨올 건지 설정
 
 logging:
   level:
