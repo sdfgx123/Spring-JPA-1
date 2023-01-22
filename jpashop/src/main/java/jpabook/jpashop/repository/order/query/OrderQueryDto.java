@@ -3,6 +3,7 @@ package jpabook.jpashop.repository.order.query;
 import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.OrderStatus;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * 즉, 일대다 관계 > 데이터를 flat하게 넣을 수 없음, 데이터가 뻥튀기됨
  */
 @Data
+@EqualsAndHashCode(of = "orderId")
 public class OrderQueryDto {
 
     private Long orderId;
@@ -23,6 +25,15 @@ public class OrderQueryDto {
     private List<OrderItemQueryDto> orderItems;
 
     public OrderQueryDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus orderStatus, Address address) {
+        this.orderId = orderId;
+        this.name = name;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.address = address;
+        this.orderItems = orderItems;
+    }
+
+    public OrderQueryDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus orderStatus, Address address, List<OrderItemQueryDto> orderItems) {
         this.orderId = orderId;
         this.name = name;
         this.orderDate = orderDate;
